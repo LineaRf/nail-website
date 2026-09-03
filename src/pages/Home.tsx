@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import Layout from '@/components/Layout'
 import TactileField from '@/components/TactileField'
+import Constellation from '@/components/Constellation'
 import Reveal from '@/components/Reveal'
 import { useLang } from '@/i18n/LanguageContext'
 import { useContent } from '@/context/ContentContext'
@@ -27,55 +28,60 @@ export default function Home() {
         {/* interactive tactile membrane */}
         <TactileField className="absolute inset-0 cursor-crosshair" />
         <div className="grid-lines pointer-events-none absolute inset-0 opacity-60" />
+        {/* brain-constellation layer — denser toward the right, away from the text */}
+        <Constellation className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_right,transparent_2%,rgba(0,0,0,0.55)_42%,black_62%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#060a12_92%)]" />
 
-        <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center px-5 pt-28 pb-16 text-center">
-          {/* dark gaussian ellipse lifting the title off the interactive field */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
-            <div className="h-[26rem] w-[44rem] max-w-[95vw] rounded-[50%] bg-[#03060c]/80 blur-3xl" />
+        <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-5 pt-28 pb-16">
+          {/* dark gaussian ellipse anchored behind the left-aligned title block */}
+          <div className="pointer-events-none absolute -left-16 top-1/2 -translate-y-1/2" aria-hidden="true">
+            <div className="h-[27rem] w-[46rem] max-w-[110vw] rounded-[50%] bg-[#03060c]/85 blur-3xl" />
           </div>
-          <Reveal>
-            <div className="relative font-mono2 text-[11px] uppercase tracking-[0.35em] text-cyan-300/80">
-              <span className="mr-2.5 inline-block h-1.5 w-1.5 rounded-full bg-rose-400 align-middle" />
-              {t('hero.kicker')}
-            </div>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1 className="relative mt-9 leading-[1.05]">
-              <span className="block font-display text-6xl font-bold tracking-tight text-slate-50 sm:text-7xl md:text-8xl">
-                {t('hero.titleA')}
-              </span>
-              <span className="text-gradient-cyan mt-4 block font-serif-display text-5xl italic tracking-normal sm:text-6xl md:text-7xl">
-                {titleB1}
-              </span>
-              {titleBRest.length > 0 && (
-                <span className="mt-2 block font-display text-6xl font-bold tracking-[0.12em] text-slate-50 sm:text-7xl md:text-8xl">
-                  {titleBRest.join(' ')}
+
+          <div className="relative max-w-2xl text-left">
+            <Reveal>
+              <div className="font-mono2 text-[11px] uppercase tracking-[0.35em] text-cyan-300/80">
+                <span className="mr-2.5 inline-block h-1.5 w-1.5 rounded-full bg-rose-400 align-middle" />
+                {t('hero.kicker')}
+              </div>
+            </Reveal>
+            <Reveal delay={120}>
+              <h1 className="mt-10 leading-[1.06]">
+                <span className="block font-display text-6xl font-bold tracking-tight text-slate-50 sm:text-7xl md:text-[5.25rem]">
+                  {t('hero.titleA')}
                 </span>
-              )}
-            </h1>
-          </Reveal>
-          <Reveal delay={240}>
-            <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
-              {t('hero.tagline')}
-            </p>
-          </Reveal>
-          <Reveal delay={360}>
-            <div className="pointer-events-auto mt-9 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                to="/research"
-                className="rounded-full bg-cyan-400 px-6 py-2.5 text-sm font-semibold text-slate-950 transition-all hover:bg-cyan-300 hover:shadow-[0_0_28px_rgba(34,211,238,0.45)]"
-              >
-                {t('hero.cta1')}
-              </Link>
-              <a
-                href="#people"
-                className="rounded-full border border-slate-600 px-6 py-2.5 text-sm text-slate-200 transition-colors hover:border-cyan-400/60 hover:text-cyan-200"
-              >
-                {t('hero.cta2')}
-              </a>
-            </div>
-          </Reveal>
+                <span className="text-gradient-cyan mt-2 block font-serif-display text-5xl italic tracking-normal sm:text-6xl md:text-7xl">
+                  {titleB1}
+                </span>
+                {titleBRest.length > 0 && (
+                  <span className="mt-1.5 block font-display text-6xl font-bold tracking-[0.14em] text-slate-50 sm:text-7xl md:text-[5.25rem]">
+                    {titleBRest.join(' ')}
+                  </span>
+                )}
+              </h1>
+            </Reveal>
+            <Reveal delay={240}>
+              <p className="mt-10 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+                {t('hero.tagline')}
+              </p>
+            </Reveal>
+            <Reveal delay={360}>
+              <div className="pointer-events-auto mt-10 flex flex-wrap items-center gap-4">
+                <Link
+                  to="/research"
+                  className="rounded-full bg-cyan-400 px-6 py-2.5 text-sm font-semibold text-slate-950 transition-all hover:bg-cyan-300 hover:shadow-[0_0_28px_rgba(34,211,238,0.45)]"
+                >
+                  {t('hero.cta1')}
+                </Link>
+                <a
+                  href="#people"
+                  className="rounded-full border border-slate-600 px-6 py-2.5 text-sm text-slate-200 transition-colors hover:border-cyan-400/60 hover:text-cyan-200"
+                >
+                  {t('hero.cta2')}
+                </a>
+              </div>
+            </Reveal>
+          </div>
         </div>
 
         <div className="pointer-events-none relative z-10 pb-8 text-center">

@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import Layout from '@/components/Layout'
 import TactileField from '@/components/TactileField'
 import Constellation from '@/components/Constellation'
+import PeopleCarousel from '@/components/PeopleCarousel'
 import Reveal from '@/components/Reveal'
 import { useLang } from '@/i18n/LanguageContext'
 import { useContent } from '@/context/ContentContext'
@@ -50,7 +51,7 @@ export default function Home() {
                 <span className="block font-display text-6xl font-bold tracking-tight text-slate-50 sm:text-7xl md:text-[5.25rem]">
                   {t('hero.titleA')}
                 </span>
-                <span className="text-gradient-cyan mt-2 block font-serif-display text-6xl italic tracking-normal sm:text-7xl md:text-[5.25rem]">
+                <span className="text-gradient-cyan mt-2 block font-serif-display text-6xl font-bold italic tracking-[0.04em] sm:text-7xl md:text-[5.25rem]">
                   {titleB1}
                 </span>
                 {titleBRest.length > 0 && (
@@ -189,35 +190,9 @@ export default function Home() {
             <p className="mt-8 text-sm text-slate-500">{t('home.peopleNote')}</p>
           </Reveal>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {content.members.map((m, i) => (
-              <Reveal key={m.id} delay={i * 90}>
-                <Link
-                  to={`/people/${m.id}`}
-                  className="group block h-full rounded-xl border border-slate-800 bg-[#0a1120] p-5 text-center transition-all hover:border-cyan-400/40 hover:bg-[#0c1526]"
-                >
-                  {m.photo ? (
-                    <img
-                      src={assetUrl(m.photo)}
-                      alt={m.name}
-                      className="mx-auto h-24 w-24 rounded-full border border-slate-700 object-cover object-top transition-all group-hover:border-cyan-400/50"
-                    />
-                  ) : (
-                    <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-slate-700 bg-slate-900/60 font-display text-2xl text-slate-500 transition-all group-hover:border-cyan-400/50 group-hover:text-cyan-300">
-                      {m.name.replace(/^(Prof\.|Dr\.)\s*/, '').charAt(0)}
-                    </div>
-                  )}
-                  <div className="mt-4 font-display text-[15px] font-semibold">{m.name}</div>
-                  <div className="mt-1 text-xs text-cyan-300/80">
-                    {t(`people.${m.role}`) !== `people.${m.role}` ? t(`people.${m.role}`) : m.role}
-                  </div>
-                  {m.interests && (
-                    <p className="mt-2 text-xs leading-relaxed text-slate-500">{m.interests}</p>
-                  )}
-                </Link>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={160}>
+            <PeopleCarousel />
+          </Reveal>
         </div>
       </section>
       {/* ================= NEWS ================= */}

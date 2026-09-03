@@ -27,7 +27,7 @@ export default function PeopleCarousel() {
   const people = useMemo(
     () =>
       content.members
-        .filter((m) => m.role !== 'pi')
+        .filter((m) => ROLE_ORDER.includes(m.role)) // current members only; PI, alumni and uncategorised excluded
         .sort((a, b) => {
           const oa = ROLE_ORDER.indexOf(a.role)
           const ob = ROLE_ORDER.indexOf(b.role)

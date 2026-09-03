@@ -361,7 +361,7 @@ export const translations: Record<Lang, Dict> = {
       master: '碩士生',
       ra: '研究助理',
       postdoc: '博士後研究員',
-      alumni: '畢業成員',
+      alumni: '校友',
       member: '實驗室成員',
     },
     memberPage: {

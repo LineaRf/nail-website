@@ -439,7 +439,7 @@ function MemberForm({ value, onSave, onCancel }: { value: Member; onSave: (m: Me
         <Field label={t('admin.fieldName')}><input className={inputCls} value={v.name} onChange={(e) => setV({ ...v, name: e.target.value })} /></Field>
         <Field label={t('admin.fieldRole')}>
           <select className={inputCls} value={v.role} onChange={(e) => setV({ ...v, role: e.target.value })}>
-            {['pi', 'postdoc', 'phd', 'ra', 'member', 'alumni'].map((r) => (
+            {['pi', 'postdoc', 'phd', 'master', 'ra', 'member', 'alumni'].map((r) => (
               <option key={r} value={r}>{t(`people.${r}`)}</option>
             ))}
           </select>

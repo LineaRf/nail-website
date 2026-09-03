@@ -20,6 +20,7 @@ export const translations: Record<Lang, Dict> = {
       pi: 'Principal Investigator',
       postdoc: 'Postdoctoral Researchers',
       phd: 'PhD Students',
+      master: 'Master Students',
       ra: 'Research Assistants',
       member: 'Lab Members',
       alumni: 'Alumni',
@@ -139,6 +140,7 @@ export const translations: Record<Lang, Dict> = {
     people: {
       pi: 'Principal Investigator',
       phd: 'PhD Student',
+      master: 'Master Student',
       ra: 'Research Assistant',
       postdoc: 'Postdoctoral Researcher',
       alumni: 'Alumni',
@@ -237,6 +239,7 @@ export const translations: Record<Lang, Dict> = {
       pi: '首席研究員',
       postdoc: '博士後研究員',
       phd: '博士生',
+      master: '碩士生',
       ra: '研究助理',
       member: '實驗室成員',
       alumni: '校友',
@@ -355,6 +358,7 @@ export const translations: Record<Lang, Dict> = {
     people: {
       pi: '實驗室主持人',
       phd: '博士生',
+      master: '碩士生',
       ra: '研究助理',
       postdoc: '博士後研究員',
       alumni: '畢業成員',

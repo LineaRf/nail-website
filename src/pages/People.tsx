@@ -6,7 +6,7 @@ import { useContent } from '@/context/ContentContext'
 import { assetUrl } from '@/lib/asset'
 import type { Member } from '@/data/content'
 
-const roleOrder = ['pi', 'postdoc', 'phd', 'ra', 'member', 'alumni']
+const roleOrder = ['pi', 'postdoc', 'phd', 'master', 'ra', 'member', 'alumni']
 
 function initials(name: string) {
   return name.replace(/^(Prof\.|Dr\.)\s*/, '').charAt(0)

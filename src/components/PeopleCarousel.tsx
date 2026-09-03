@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useLang } from '@/i18n/LanguageContext'
 import { useContent } from '@/context/ContentContext'
@@ -6,15 +6,19 @@ import { assetUrl } from '@/lib/asset'
 import type { Member } from '@/data/content'
 
 /**
- * PeopleCarousel — auto-rotating spotlight of lab members on the home page.
- * Excludes the PI (who has a dedicated section above), sorts dynamically by
- * seniority (postdoc → phd → master → ra) and rotates every few seconds.
+ * PeopleCarousel — multi-card auto-scrolling row of lab members.
+ * Excludes the PI (dedicated section above), sorts dynamically by seniority
+ * (postdoc → phd → master → ra). Shows as many cards as fit the container,
+ * advances one card every few seconds with a seamless infinite loop,
+ * pauses on hover/focus, and offers ‹ › arrows for manual control.
  * Fully data-driven: any future member change in content.json just works.
- * Pauses on hover/focus; side cards jump when clicked.
  */
 const ROLE_ORDER = ['postdoc', 'phd', 'master', 'ra']
 
+const CARD_W = 230
+const GAP = 20
 const INTERVAL = 4500
+const DUR = 700 // ms, must match the CSS transition duration
 
 export default function PeopleCarousel() {
   const { t } = useLang()
@@ -25,29 +29,59 @@ export default function PeopleCarousel() {
       content.members
         .filter((m) => m.role !== 'pi')
         .sort((a, b) => {
-          const ra = ROLE_ORDER.indexOf(a.role)
-          const rb = ROLE_ORDER.indexOf(b.role)
-          const oa = ra === -1 ? ROLE_ORDER.length : ra
-          const ob = rb === -1 ? ROLE_ORDER.length : rb
-          return oa - ob || a.name.localeCompare(b.name)
+          const oa = ROLE_ORDER.indexOf(a.role)
+          const ob = ROLE_ORDER.indexOf(b.role)
+          return (oa === -1 ? 99 : oa) - (ob === -1 ? 99 : ob) || a.name.localeCompare(b.name)
         }),
     [content.members],
   )
-
-  const [idx, setIdx] = useState(0)
-  const [paused, setPaused] = useState(false)
   const n = people.length
 
+  // container width → how many cards fit
+  const boxRef = useRef<HTMLDivElement>(null)
+  const [boxW, setBoxW] = useState(0)
   useEffect(() => {
-    if (paused || n < 2) return
-    const id = setInterval(() => setIdx((i) => (i + 1) % n), INTERVAL)
-    return () => clearInterval(id)
-  }, [paused, n])
+    const el = boxRef.current
+    if (!el) return
+    const ro = new ResizeObserver(() => setBoxW(el.clientWidth))
+    ro.observe(el)
+    setBoxW(el.clientWidth)
+    return () => ro.disconnect()
+  }, [])
+  const visible = Math.max(1, Math.min(n, Math.floor((boxW + GAP) / (CARD_W + GAP)) || 1))
+  const scrollable = n > visible
 
-  // keep index valid if the member list shrinks
+  // infinite loop: render 3 copies, live in the middle copy
+  const [idx, setIdx] = useState(0)
+  const [anim, setAnim] = useState(true)
+  const [paused, setPaused] = useState(false)
+
+  // reset when the list or layout changes
   useEffect(() => {
-    if (n > 0 && idx >= n) setIdx(0)
-  }, [n, idx])
+    setAnim(false)
+    setIdx(scrollable ? n : 0)
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)))
+    return () => cancelAnimationFrame(id)
+  }, [n, scrollable])
+
+  useEffect(() => {
+    if (!scrollable || paused) return
+    const id = setInterval(() => setIdx((i) => i + 1), INTERVAL)
+    return () => clearInterval(id)
+  }, [scrollable, paused])
+
+  // after each slide, snap back into the middle copy invisibly
+  useEffect(() => {
+    if (!scrollable) return
+    if (idx >= 2 * n || idx < n) {
+      const id = setTimeout(() => {
+        setAnim(false)
+        setIdx((i) => (i >= 2 * n ? i - n : i + n))
+        requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)))
+      }, DUR + 40)
+      return () => clearTimeout(id)
+    }
+  }, [idx, n, scrollable])
 
   if (n === 0) return null
 
@@ -57,95 +91,83 @@ export default function PeopleCarousel() {
     return v !== key ? v : m.role
   }
 
-  const card = (m: Member, pos: 'center' | 'prev' | 'next') => {
-    const isCenter = pos === 'center'
-    const base =
-      'absolute left-1/2 top-1/2 block rounded-2xl border bg-[#0a1120] p-6 text-center transition-all duration-700 ease-out'
-    const style =
-      pos === 'center'
-        ? 'z-10 w-64 sm:w-72 border-cyan-400/30 shadow-[0_0_50px_rgba(34,211,238,0.12)] -translate-x-1/2 -translate-y-1/2 scale-100 opacity-100'
-        : pos === 'prev'
-          ? 'z-0 w-52 border-slate-800 -translate-x-[115%] sm:-translate-x-[135%] -translate-y-1/2 scale-90 opacity-40 hover:opacity-70'
-          : 'z-0 w-52 border-slate-800 translate-x-[15%] sm:translate-x-[35%] -translate-y-1/2 scale-90 opacity-40 hover:opacity-70'
-    const inner = (
-      <>
-        {m.photo ? (
-          <img
-            src={assetUrl(m.photo)}
-            alt={m.name}
-            className={`mx-auto rounded-full border object-cover object-top transition-colors ${
-              isCenter ? 'h-28 w-28 border-cyan-400/40' : 'h-16 w-16 border-slate-700'
-            }`}
-          />
-        ) : (
-          <div
-            className={`mx-auto flex items-center justify-center rounded-full border bg-slate-900/60 font-display text-slate-500 ${
-              isCenter ? 'h-28 w-28 border-cyan-400/40 text-3xl' : 'h-16 w-16 border-slate-700 text-xl'
-            }`}
-          >
-            {m.name.replace(/^(Prof\.|Dr\.)\s*/, '').charAt(0)}
-          </div>
-        )}
-        <div className={`mt-4 font-display font-semibold ${isCenter ? 'text-lg' : 'text-xs'}`}>{m.name}</div>
-        <div className={`mt-1 text-cyan-300/80 ${isCenter ? 'text-sm' : 'text-[10px]'}`}>{roleLabel(m)}</div>
-        {isCenter && m.interests && (
-          <p className="mt-3 text-xs leading-relaxed text-slate-400">{m.interests}</p>
-        )}
-      </>
-    )
-    if (isCenter) {
-      return (
-        <Link key={m.id} to={`/people/${m.id}`} className={`${base} ${style} hover:border-cyan-400/60`}>
-          {inner}
-        </Link>
-      )
-    }
-    return (
-      <button
-        key={m.id}
-        type="button"
-        aria-label={m.name}
-        onClick={() => setIdx(pos === 'prev' ? (idx - 1 + n) % n : (idx + 1) % n)}
-        className={`${base} ${style} cursor-pointer`}
-      >
-        {inner}
-      </button>
-    )
-  }
+  const copies = scrollable ? 3 : 1
+  const items: Member[] = []
+  for (let c = 0; c < copies; c++) items.push(...people)
 
-  const prev = people[(idx - 1 + n) % n]
-  const cur = people[idx]
-  const next = people[(idx + 1) % n]
+  const rowW = visible * CARD_W + (visible - 1) * GAP
+  const offset = Math.max(0, (boxW - rowW) / 2)
+  const x = offset - idx * (CARD_W + GAP)
+
+  const arrow =
+    'absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-700/60 bg-[#0a1120]/80 text-lg text-slate-300 backdrop-blur transition-all hover:border-cyan-400/60 hover:text-cyan-200'
 
   return (
     <div
-      className="mt-10"
+      ref={boxRef}
+      className="relative mt-10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div className="relative mx-auto h-[21rem] max-w-3xl sm:h-[22rem]">
-        {n > 2 && card(prev, 'prev')}
-        {card(cur, 'center')}
-        {n > 1 && card(next, 'next')}
-      </div>
-
-      {/* progress dots */}
-      {n > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-2">
-          {people.map((m, i) => (
-            <button
-              key={m.id}
-              type="button"
-              aria-label={m.name}
-              onClick={() => setIdx(i)}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                i === idx ? 'w-6 bg-cyan-300' : 'w-1.5 bg-slate-700 hover:bg-slate-500'
-              }`}
-            />
+      <div className="overflow-hidden py-2">
+        <div
+          className="flex"
+          style={{
+            gap: GAP,
+            transform: `translateX(${x}px)`,
+            transition: anim ? `transform ${DUR}ms cubic-bezier(0.4, 0, 0.2, 1)` : 'none',
+          }}
+        >
+          {items.map((m, i) => (
+            <Link
+              key={`${m.id}-${i}`}
+              to={`/people/${m.id}`}
+              className="group block shrink-0 rounded-xl border border-slate-800 bg-[#0a1120] p-5 text-center transition-colors hover:border-cyan-400/40 hover:bg-[#0c1526]"
+              style={{ width: CARD_W }}
+              tabIndex={scrollable && (i < n || i >= 2 * n) ? -1 : 0}
+            >
+              {m.photo ? (
+                <img
+                  src={assetUrl(m.photo)}
+                  alt={m.name}
+                  className="mx-auto h-24 w-24 rounded-full border border-slate-700 object-cover object-top transition-colors group-hover:border-cyan-400/50"
+                />
+              ) : (
+                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-slate-700 bg-slate-900/60 font-display text-2xl text-slate-500 transition-colors group-hover:border-cyan-400/50 group-hover:text-cyan-300">
+                  {m.name.replace(/^(Prof\.|Dr\.)\s*/, '').charAt(0)}
+                </div>
+              )}
+              <div className="mt-4 font-display text-[15px] font-semibold">{m.name}</div>
+              <div className="mt-1 text-xs text-cyan-300/80">{roleLabel(m)}</div>
+              {m.interests && (
+                <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-slate-500">{m.interests}</p>
+              )}
+            </Link>
           ))}
         </div>
+      </div>
+
+      {scrollable && (
+        <>
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => setIdx((i) => i - 1)}
+            className={`${arrow} left-1 sm:-left-2`}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => setIdx((i) => i + 1)}
+            className={`${arrow} right-1 sm:-right-2`}
+          >
+            ›
+          </button>
+        </>
       )}
     </div>
   )

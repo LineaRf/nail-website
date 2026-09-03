@@ -45,20 +45,30 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-[#060a12] text-slate-100">
       {/* header — floating logo plate + detached pill menu */}
       <header className="fixed inset-x-0 top-0 z-50">
-        <div className="relative mx-auto flex max-w-6xl items-center justify-between px-5 pt-4">
-          {/* logo plate — large and clearly readable */}
+        <div className="relative flex items-center justify-between px-3 pt-4 sm:px-5">
+          {/* logo plate — pinned to the left edge; collapses to a compact mark on scroll */}
           <Link
             to="/"
-            className={`glass flex items-center gap-3 rounded-2xl border border-slate-700/50 px-3.5 py-2.5 transition-shadow duration-300 ${
-              scrolled ? 'shadow-[0_10px_36px_rgba(0,0,0,0.55)]' : ''
+            className={`glass flex items-center rounded-2xl border border-slate-700/50 transition-all duration-300 ${
+              scrolled
+                ? 'gap-0 px-2 py-2 shadow-[0_10px_36px_rgba(0,0,0,0.55)]'
+                : 'gap-3 px-3.5 py-2.5'
             }`}
           >
-            <img src={assetUrl('./assets/lab-logo-outline.png')} alt="Lab logo" className="h-12 w-12 object-contain" />
-            <div className="hidden leading-tight sm:block">
-              <div className="font-display text-sm font-semibold tracking-wide">
+            <img
+              src={assetUrl('./assets/lab-logo-outline.png')}
+              alt="Lab logo"
+              className={`w-auto object-contain transition-all duration-300 ${scrolled ? 'h-8' : 'h-12'}`}
+            />
+            <div
+              className={`overflow-hidden leading-tight transition-all duration-300 ${
+                scrolled ? 'max-w-0 opacity-0' : 'max-w-xs opacity-100'
+              } hidden sm:block`}
+            >
+              <div className="font-display text-sm font-semibold tracking-wide whitespace-nowrap">
                 Neuro-Affective <span className="text-cyan-300">Interaction</span> Lab
               </div>
-              <div className="font-mono2 text-[10px] uppercase tracking-[0.2em] text-slate-400">
+              <div className="font-mono2 text-[10px] uppercase tracking-[0.2em] text-slate-400 whitespace-nowrap">
                 CCBS · University of Macau
               </div>
             </div>
@@ -156,7 +166,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       {/* footer */}
       <footer className="border-t border-slate-800/80 bg-[#05080f]">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-5 py-10 text-center">
-          <img src={assetUrl('./assets/lab-logo-outline.png')} alt="" className="h-16 w-16 opacity-90" />
+          <img src={assetUrl('./assets/lab-logo-outline.png')} alt="" className="h-16 w-auto opacity-90" />
           <div>
             <div className="font-display font-semibold">{t('footer.line1')}</div>
             <div className="mt-1 text-sm text-slate-400">{t('footer.line2')}</div>

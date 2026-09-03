@@ -50,11 +50,11 @@ export default function Home() {
                 <span className="block font-display text-6xl font-bold tracking-tight text-slate-50 sm:text-7xl md:text-[5.25rem]">
                   {t('hero.titleA')}
                 </span>
-                <span className="text-gradient-cyan mt-2 block font-serif-display text-5xl italic tracking-normal sm:text-6xl md:text-7xl">
+                <span className="text-gradient-cyan mt-2 block font-serif-display text-6xl italic tracking-normal sm:text-7xl md:text-[5.25rem]">
                   {titleB1}
                 </span>
                 {titleBRest.length > 0 && (
-                  <span className="mt-1.5 block font-display text-6xl font-bold tracking-[0.14em] text-slate-50 sm:text-7xl md:text-[5.25rem]">
+                  <span className="mt-1.5 block font-display text-6xl font-bold tracking-tight text-slate-50 sm:text-7xl md:text-[5.25rem]">
                     {titleBRest.join(' ')}
                   </span>
                 )}

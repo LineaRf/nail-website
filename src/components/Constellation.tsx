@@ -228,5 +228,8 @@ export default function Constellation({ className = '' }: { className?: string }
     }
   }, [])
 
-  return <canvas ref={ref} className={className} aria-hidden="true" />
+  // w-full h-full is REQUIRED: canvas is a replaced element, so with
+  // position:absolute the width/height attributes would otherwise become the
+  // intrinsic layout size and blow up in a ResizeObserver feedback loop.
+  return <canvas ref={ref} className={`h-full w-full ${className}`} aria-hidden="true" />
 }

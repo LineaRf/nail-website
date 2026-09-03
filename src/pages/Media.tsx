@@ -1,4 +1,5 @@
 import Layout from '@/components/Layout'
+import PageHeader from '@/components/PageHeader'
 import Reveal from '@/components/Reveal'
 import { useLang } from '@/i18n/LanguageContext'
 import { useContent } from '@/context/ContentContext'
@@ -79,15 +80,7 @@ export default function Media() {
 
   return (
     <Layout>
-      <section className="border-b border-slate-800/60 bg-[#070c16]">
-        <div className="mx-auto max-w-6xl px-5 pb-16 pt-36">
-          <Reveal>
-            <div className="font-mono2 text-[11px] uppercase tracking-[0.35em] text-rose-300/80">{t('media.kicker')}</div>
-            <h1 className="mt-4 font-display text-4xl font-bold sm:text-5xl">{t('media.title')}</h1>
-            <p className="mt-4 text-sm text-slate-400">{t('media.subtitle')}</p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHeader kicker={t('media.kicker')} title={t('media.title')} subtitle={t('media.subtitle')} accent="rose" />
 
       <section className="mx-auto max-w-6xl px-5 py-14">
         {headline && (

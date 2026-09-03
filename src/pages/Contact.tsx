@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout'
+import PageHeader from '@/components/PageHeader'
 import Reveal from '@/components/Reveal'
-import TactileField from '@/components/TactileField'
 import { useLang } from '@/i18n/LanguageContext'
 
 export default function Contact() {
@@ -8,17 +8,8 @@ export default function Contact() {
 
   return (
     <Layout>
-      {/* header with interactive field — reach out and touch */}
-      <section className="relative overflow-hidden border-b border-slate-800/60">
-        <TactileField className="absolute inset-0 cursor-crosshair" opacity={0.45} />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#060a12]/40 via-transparent to-[#060a12]" />
-        <div className="pointer-events-none relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-36">
-          <Reveal>
-            <div className="font-mono2 text-[11px] uppercase tracking-[0.35em] text-cyan-300/80">{t('contact.kicker')}</div>
-            <h1 className="mt-4 font-display text-4xl font-bold sm:text-5xl">{t('contact.title')}</h1>
-          </Reveal>
-        </div>
-      </section>
+      {/* unified interactive page header — reach out and touch */}
+      <PageHeader kicker={t('contact.kicker')} title={t('contact.title')} />
 
       <section className="mx-auto max-w-6xl px-5 py-16">
         <div className="grid gap-5 md:grid-cols-2">

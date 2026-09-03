@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import Layout from '@/components/Layout'
+import PageHeader from '@/components/PageHeader'
 import Reveal from '@/components/Reveal'
 import { useLang } from '@/i18n/LanguageContext'
 import { useContent } from '@/context/ContentContext'
@@ -23,15 +24,7 @@ export default function Publications() {
 
   return (
     <Layout>
-      <section className="border-b border-slate-800/60 bg-[#070c16]">
-        <div className="mx-auto max-w-6xl px-5 pb-16 pt-36">
-          <Reveal>
-            <div className="font-mono2 text-[11px] uppercase tracking-[0.35em] text-cyan-300/80">{t('pubs.kicker')}</div>
-            <h1 className="mt-4 font-display text-4xl font-bold sm:text-5xl">{t('pubs.title')}</h1>
-            <p className="mt-4 text-sm text-slate-400">{t('pubs.noteRecent')}</p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHeader kicker={t('pubs.kicker')} title={t('pubs.title')} subtitle={t('pubs.noteRecent')} />
 
       <section className="mx-auto max-w-6xl px-5 py-14">
         {/* filters */}

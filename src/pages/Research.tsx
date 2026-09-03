@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout'
+import PageHeader from '@/components/PageHeader'
 import Reveal from '@/components/Reveal'
-import TactileField from '@/components/TactileField'
 import { useLang } from '@/i18n/LanguageContext'
 
 const areaKeys = [
@@ -29,20 +29,8 @@ export default function Research() {
 
   return (
     <Layout>
-      {/* header band with a quiet tactile field */}
-      <section className="relative overflow-hidden border-b border-slate-800/60">
-        <TactileField className="absolute inset-0 cursor-crosshair" opacity={0.45} />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#060a12]/40 via-transparent to-[#060a12]" />
-        <div className="pointer-events-none relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-36">
-          <Reveal>
-            <div className="font-mono2 text-[11px] uppercase tracking-[0.35em] text-cyan-300/80">{t('research.kicker')}</div>
-            <h1 className="mt-4 max-w-3xl font-display text-4xl font-bold leading-tight sm:text-5xl">
-              {t('research.title')}
-            </h1>
-            <p className="mt-6 max-w-2xl leading-relaxed text-slate-300">{t('research.intro')}</p>
-          </Reveal>
-        </div>
-      </section>
+      {/* unified interactive page header */}
+      <PageHeader kicker={t('research.kicker')} title={t('research.title')} subtitle={t('research.intro')} />
 
       {/* focus areas */}
       <section className="mx-auto max-w-6xl px-5 py-20">

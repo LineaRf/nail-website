@@ -1,0 +1,281 @@
+{
+  "publications": [
+    {
+      "id": "pub-brainprompting-2026",
+      "title": "BrainPrompting: Reconstructing facial memory by brain-based generative AI interaction",
+      "authors": "Li, A., Ruotsalo, T., Ang, J. H., & Spapé, M. M. (corresponding)",
+      "outlet": "Scientific Reports (2026)",
+      "year": 2026,
+      "url": "https://www.nature.com/articles/s41598-026-59737-8",
+      "tags": [
+        "generative AI",
+        "BCI",
+        "EEG",
+        "memory"
+      ]
+    },
+    {
+      "id": "pub-brainvote-2026",
+      "title": "Revealing implicit social bias through EEG-informed generative AI",
+      "authors": "Li, A., Ruotsalo, T., Montag, C., & Spapé, M. M.",
+      "outlet": "PsyArXiv preprint (2026)",
+      "year": 2026,
+      "url": "https://doi.org/10.31234/osf.io/pyuxn_v4",
+      "tags": [
+        "EEG",
+        "generative AI",
+        "social bias"
+      ]
+    },
+    {
+      "id": "pub-partial-recognition-2025",
+      "title": "Partial recognition: The P3 marks the top-down similarity between task-relevant targets and presented stimuli",
+      "authors": "Spapé, M., Li, A., & Guo, R.",
+      "outlet": "Biological Psychology, 202 (2025)",
+      "year": 2025,
+      "url": "https://www.sciencedirect.com/journal/biological-psychology/vol/202/suppl/C",
+      "tags": [
+        "EEG",
+        "ERP",
+        "perception"
+      ]
+    },
+    {
+      "id": "pub-neuroadaptive-time-2025",
+      "title": "A neuroadaptive interface shows intentional control alters the experience of time",
+      "authors": "Spapé, M., Ahmed, I., Harjunen, V., Jacucci, G., & Ravaja, N.",
+      "outlet": "Scientific Reports, 15, 9495 (2025)",
+      "year": 2025,
+      "url": "https://doi.org/10.1038/s41598-025-93204-0",
+      "tags": [
+        "neuroadaptive",
+        "consciousness",
+        "time perception"
+      ]
+    },
+    {
+      "id": "pub-immersive-tailoring-2025",
+      "title": "Immersive Tailoring of Embodied Agents Using Large Language Models",
+      "authors": "Bellucci, A., Jacucci, G., Trung, K. D., Das, P. K., Smirnov, S. V., Ahmed, I., & Lugrin, J. L.",
+      "outlet": "2025 IEEE Conference on Virtual Reality and 3D User Interfaces (VR), 392–400",
+      "year": 2025,
+      "url": "",
+      "tags": [
+        "VR",
+        "LLM",
+        "avatars"
+      ]
+    },
+    {
+      "id": "pub-haptics-review-2024",
+      "title": "Haptics in social interaction with agents and avatars in virtual reality: a systematic review",
+      "authors": "Jacucci, G., Bellucci, A., Ahmed, I., Harjunen, V., Spapé, M., & Ravaja, N.",
+      "outlet": "Virtual Reality, 28, 170 (2024)",
+      "year": 2024,
+      "url": "https://doi.org/10.1007/s10055-024-01060-6",
+      "tags": [
+        "haptics",
+        "VR",
+        "social touch"
+      ]
+    },
+    {
+      "id": "pub-321-action-2023",
+      "title": "3-2-1, Action! A combined motor control-temporal reproduction task shows intentions, motions, and consequences alter time perception",
+      "authors": "Spapé, M., Serrien, D., & Ravaja, N.",
+      "outlet": "Heliyon, 9, e19728 (2023)",
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.heliyon.2023.e19728",
+      "tags": [
+        "time perception",
+        "action",
+        "consciousness"
+      ]
+    },
+    {
+      "id": "pub-nemo-2023",
+      "title": "NEMO: A Database for Emotion Analysis Using Functional Near-infrared Spectroscopy",
+      "authors": "Spapé, M., Mäkelä, K., & Ruotsalo, T.",
+      "outlet": "IEEE Transactions on Affective Computing (2023)",
+      "year": 2023,
+      "url": "",
+      "tags": [
+        "fNIRS",
+        "emotion",
+        "database"
+      ]
+    },
+    {
+      "id": "pub-embodiment-2023",
+      "title": "Revisiting embodiment for brain–computer interfaces",
+      "authors": "Serim, B., Spapé, M., & Jacucci, G.",
+      "outlet": "Human–Computer Interaction (2023)",
+      "year": 2023,
+      "url": "",
+      "tags": [
+        "BCI",
+        "embodiment",
+        "HCI"
+      ]
+    }
+  ],
+  "news": [
+    {
+      "id": "news-um-feature-2025",
+      "title": "Deciphering Consciousness: Prof Michiel Spapé’s Research on Human-Computer Symbiosis",
+      "source": "University of Macau — Campus News / UMagazine Issue 31",
+      "date": "2025-05-22",
+      "url": "https://www.um.edu.mo/news-and-press-releases/campus-news/detail/61146/",
+      "summary": "Feature on Prof. Spapé’s bidirectional BCI research at CCBS: neuroadaptive modelling, the AI Tutor project, and decoding the brain’s first-person experience."
+    },
+    {
+      "id": "news-fst-2025",
+      "title": "意識解碼：Michiel Spapé教授的人機共生研究 / Deciphering Consciousness",
+      "source": "UM Faculty of Science and Technology",
+      "date": "2025-07-04",
+      "url": "https://fst.um.edu.mo/news/deciphering-consciousness-prof-michiel-spapes-research-on-human-computer-symbiosis/",
+      "summary": "Bilingual (EN/繁中) version of the UMagazine feature on the Faculty of Science and Technology news site."
+    },
+    {
+      "id": "news-fic-2026",
+      "title": "Deciphering Consciousness: Prof Michiel Spapé’s Research on Human-Computer Symbiosis",
+      "source": "UM Institute of Collaborative Innovation (FIC)",
+      "date": "2026-05-08",
+      "url": "https://fic.um.edu.mo/news/deciphering-consciousness-prof-michiel-spapes-research-on-human-computer-symbiosis/",
+      "summary": "The UMagazine feature republished by the Institute of Collaborative Innovation."
+    },
+    {
+      "id": "news-emotion-ai-forum-2025",
+      "title": "First Macau Forum on Emotional Artificial Intelligence held at UM",
+      "source": "Government of Macao SAR — Press Release",
+      "date": "2025-04-17",
+      "url": "https://www.gov.mo/en/news/357178/",
+      "summary": "Prof. Spapé among the UM scholars presenting at the forum on emotion-aware AI, affective BCIs and the ethics of human–AI interaction."
+    },
+    {
+      "id": "news-ahmed-phd-2024",
+      "title": "Imtiaj Ahmed defends his PhD thesis on Haptic interaction with affective agents in virtual reality",
+      "source": "University of Helsinki — Faculty of Science News",
+      "date": "2024-01-25",
+      "url": "https://www.helsinki.fi/en/faculty-science/news/imtiaj-ahmed-defends-his-phd-thesis-haptic-interaction-affective-agents-virtual-reality",
+      "summary": "Lab postdoc Dr. Imtiaj Ahmed defended his dissertation at the University of Helsinki, supervised by Prof. Giulio Jacucci and Prof. Michiel Spapé."
+    }
+  ],
+  "members": [
+    {
+      "id": "michiel-spape",
+      "name": "Prof. Michiel Spapé",
+      "role": "pi",
+      "bio": "Associate Professor, Centre for Cognitive and Brain Sciences & Faculty of Science and Technology, University of Macau. PhD in Psychology, Leiden University; previously University of Nottingham, Helsinki Institute for Information Technology, Liverpool Hope University, and University of Helsinki. Associate editor of Psychological Research and Frontiers in Psychology: Cognition.",
+      "photo": "./assets/pi-photo.webp",
+      "email": "mspape@um.edu.mo",
+      "interests": "Consciousness & cognition · Perception & action · Emotion & social cognition · Human–computer interaction",
+      "matchNames": [
+        "Spapé"
+      ]
+    },
+    {
+      "id": "imtiaj-ahmed",
+      "name": "Dr. Imtiaj Ahmed",
+      "role": "postdoc",
+      "bio": "Postdoctoral researcher. PhD in Computer Science, University of Helsinki (2024) — dissertation “Haptic interaction with affective agents in virtual reality”, supervised by Prof. Giulio Jacucci and Prof. Michiel Spapé. Works on haptic technologies, affective virtual agents and physiological sensing in VR.",
+      "photo": "./assets/people/imtiaj-ahmed.jpg",
+      "email": "",
+      "interests": "Haptics · Affective virtual agents · VR · Physiological sensing",
+      "matchNames": [
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "aotong-li",
+      "name": "Aotong Li (Allie)",
+      "role": "phd",
+      "bio": "PhD student, Centre for Cognitive and Brain Sciences & Department of Computer and Information Science, University of Macau. First author of “BrainPrompting” (Scientific Reports, 2026) on reconstructing facial memory through brain-based generative AI interaction.",
+      "photo": "./assets/people/aotong-li.jpg",
+      "email": "yc47480@um.edu.mo",
+      "interests": "BCI · Affective computing · Generative AI",
+      "matchNames": [
+        "Li, A.",
+        "Aotong Li"
+      ]
+    },
+    {
+      "id": "xinqi-yu",
+      "name": "Xinqi Yu",
+      "role": "phd",
+      "bio": "PhD student, Centre for Cognitive and Brain Sciences, University of Macau.",
+      "photo": "./assets/people/xinqi-yu.jpg",
+      "email": "yc57389@um.edu.mo",
+      "interests": "HCI · BCI · Neuroaffective interaction",
+      "matchNames": [
+        "Yu, X.",
+        "Xinqi Yu"
+      ]
+    },
+    {
+      "id": "xinyu-huang",
+      "name": "Xinyu Huang",
+      "role": "phd",
+      "bio": "PhD student, Centre for Cognitive and Brain Sciences, University of Macau.",
+      "photo": "./assets/people/xinyu-huang.jpg",
+      "email": "yc47339@um.edu.mo",
+      "interests": "Haptic temporal perception during human–AI communication",
+      "matchNames": [
+        "Huang, X.",
+        "Xinyu Huang"
+      ]
+    },
+    {
+      "id": "na-ao",
+      "name": "Na Ao",
+      "role": "phd",
+      "bio": "PhD student, Centre for Cognitive and Brain Sciences, University of Macau.",
+      "photo": "./assets/people/na-ao.jpg",
+      "email": "yc57333@um.edu.mo",
+      "interests": "Social touch · Social cognition · Emotion",
+      "matchNames": [
+        "Ao, N.",
+        "Na Ao"
+      ]
+    },
+    {
+      "id": "yilin-liu",
+      "name": "Yilin Liu",
+      "role": "phd",
+      "bio": "PhD student, Neuro-Affective Interaction Lab, Centre for Cognitive and Brain Sciences, University of Macau.",
+      "photo": "",
+      "email": "",
+      "interests": "",
+      "matchNames": [
+        "Liu, Y.",
+        "Yilin Liu"
+      ]
+    },
+    {
+      "id": "youqing-he",
+      "name": "Youqing He",
+      "role": "ra",
+      "bio": "Research assistant, Neuro-Affective Interaction Lab, Centre for Cognitive and Brain Sciences, University of Macau.",
+      "photo": "",
+      "email": "",
+      "interests": "",
+      "matchNames": [
+        "He, Y.",
+        "Youqing He"
+      ]
+    },
+    {
+      "id": "yujie-lin",
+      "name": "Yujie Lin",
+      "role": "member",
+      "bio": "Neuro-Affective Interaction Lab, Centre for Cognitive and Brain Sciences, University of Macau.",
+      "photo": "",
+      "email": "",
+      "interests": "",
+      "matchNames": [
+        "Lin, Y.",
+        "Yujie Lin"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 4%;
+    --foreground: 210 40% 96%;
+    --card: 222 44% 6%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 44% 6%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 187 92% 55%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 220 30% 12%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 220 30% 12%;
+    --muted-foreground: 215 20% 62%;
+    --accent: 220 30% 14%;
+    --accent-foreground: 210 40% 96%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 25% 16%;
+    --input: 220 25% 16%;
+    --ring: 187 92% 55%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Space Grotesk', 'Noto Sans TC', system-ui, sans-serif;
+  }
+  .font-mono2 {
+    font-family: 'JetBrains Mono', 'Noto Sans TC', monospace;
+  }
+}
+
+@layer utilities {
+  .text-gradient-cyan {
+    background: linear-gradient(120deg, #67e8f9 0%, #22d3ee 45%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gradient-affect {
+    background: linear-gradient(120deg, #fda4af 0%, #fb7185 50%, #e879f9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glass {
+    background: rgba(13, 20, 34, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(103, 232, 249, 0.09);
+  }
+  .grid-lines {
+    background-image:
+      linear-gradient(rgba(103, 232, 249, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(103, 232, 249, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+}
+
+/* scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* subtle EEG-like underline animation for section titles */
+.eeg-line {
+  position: relative;
+}
+.eeg-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  height: 2px;
+  width: 72px;
+  background: linear-gradient(90deg, #22d3ee, transparent);
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #070b14;
+}
+::-webkit-scrollbar-thumb {
+  background: #1b2940;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #27436b;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.28);
+}

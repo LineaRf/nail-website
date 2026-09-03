@@ -87,13 +87,14 @@ export default function Constellation({ className = '' }: { className?: string }
       mouse.nx = (e.clientX / window.innerWidth) * 2 - 1
       mouse.ny = (e.clientY / window.innerHeight) * 2 - 1
       if (mouse.down) {
-        // drag: pull nearby particles along the drag delta (screen space)
+        // drag: pull nearby particles along the drag delta (screen space).
+        // dx/dy are screen px, so the factor must stay very small (cube units).
         const dx = p.x - mouse.x
         const dy = p.y - mouse.y
         for (const pt of particles) {
           const d = Math.hypot(pt.sx - mouse.x, pt.sy - mouse.y)
           if (d < 220) {
-            const f = ((1 - d / 220) * 0.0009) / Math.max(0.35, pt.s)
+            const f = (1 - d / 220) * 0.00012
             pt.vx += dx * f
             pt.vy += dy * f
           }
@@ -116,14 +117,17 @@ export default function Constellation({ className = '' }: { className?: string }
       const quick = performance.now() - mouse.downAt < 280
       const still = Math.hypot(p.x - mouse.downX, p.y - mouse.downY) < 8
       if (mouse.down && quick && still && p.x >= 0 && p.y >= 0 && p.x <= w && p.y <= h) {
-        // click: burst ripple + repel (screen space)
+        // click: burst ripple + repel (screen space).
+        // Kick must stay TINY: velocities live in cube units ([-1,1]) and a
+        // large kick throws particles behind the camera → Infinity coords →
+        // the canvas renderer freezes.
         ripples.push({ x: p.x, y: p.y, r: 0, alpha: 0.9 })
         for (const pt of particles) {
           const d = Math.hypot(pt.sx - p.x, pt.sy - p.y)
           if (d < 200 && d > 0.01) {
-            const f = ((1 - d / 200) * 0.02) / Math.max(0.35, pt.s)
-            pt.vx += ((pt.sx - p.x) / d) * f * 60
-            pt.vy += ((pt.sy - p.y) / d) * f * 60
+            const f = (1 - d / 200) * 0.014
+            pt.vx += ((pt.sx - p.x) / d) * f
+            pt.vy += ((pt.sy - p.y) / d) * f
           }
         }
       }
@@ -171,18 +175,29 @@ export default function Constellation({ className = '' }: { className?: string }
         p.vy += rand(-kick, kick)
         p.vz += rand(-kick, kick)
         p.vx *= 0.985; p.vy *= 0.985; p.vz *= 0.985
+        // hard safety: clamp velocity & position so no interaction can ever
+        // throw a particle behind the camera (Infinity → frozen renderer)
+        const VMAX = 0.03
+        if (p.vx > VMAX) p.vx = VMAX; else if (p.vx < -VMAX) p.vx = -VMAX
+        if (p.vy > VMAX) p.vy = VMAX; else if (p.vy < -VMAX) p.vy = -VMAX
+        if (p.vz > VMAX) p.vz = VMAX; else if (p.vz < -VMAX) p.vz = -VMAX
         p.x += p.vx; p.y += p.vy; p.z += p.vz
         // soft containment: steer back toward the cube instead of hard wrap
         if (p.x > 1.15) p.vx -= 0.0006; if (p.x < -1.15) p.vx += 0.0006
         if (p.y > 1.15) p.vy -= 0.0006; if (p.y < -1.15) p.vy += 0.0006
         if (p.z > 1.15) p.vz -= 0.0006; if (p.z < -1.15) p.vz += 0.0006
+        if (p.x > 1.6) p.x = 1.6; else if (p.x < -1.6) p.x = -1.6
+        if (p.y > 1.6) p.y = 1.6; else if (p.y < -1.6) p.y = -1.6
+        if (p.z > 1.6) p.z = 1.6; else if (p.z < -1.6) p.z = -1.6
+        // last-resort NaN guard
+        if (!Number.isFinite(p.x) || !Number.isFinite(p.y) || !Number.isFinite(p.z)) spawn(p)
 
-        // rotate around Y then X, perspective-project
+        // rotate around Y then X, perspective-project (denominator clamped)
         const x1 = p.x * cy_ - p.z * sy_
         const z1 = p.x * sy_ + p.z * cy_
         const y1 = p.y * cx_ - z1 * sx_
         const z2 = p.y * sx_ + z1 * cx_
-        const s = PERSP / (PERSP + z2)
+        const s = PERSP / Math.max(0.3, PERSP + z2)
         p.s = s
         p.sx = cX + x1 * s * R
         p.sy = cY + y1 * s * R

@@ -20,18 +20,22 @@ function ReadMore({ url }: { url: string }) {
   )
 }
 
-/** Large headline card — pinned item (featured) or the newest story. */
+/** Full-width headline banner — pinned item (featured) or the newest story. */
 function Headline({ n }: { n: NewsItem }) {
   const { t } = useLang()
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-rose-400/25 bg-gradient-to-br from-[#160d14] to-[#0a1120] transition-all hover:border-rose-400/50 hover:shadow-[0_0_40px_rgba(251,113,133,0.1)]">
+    <article className="group relative overflow-hidden rounded-2xl border border-rose-400/25 transition-all hover:border-rose-400/50">
       {n.image && (
-        <div className="relative">
-          <img src={assetUrl(n.image)} alt="" className="aspect-[16/9] w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#160d14] via-transparent to-transparent" />
-        </div>
+        <>
+          <img
+            src={assetUrl(n.image)}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0d16]/95 via-[#0a0d16]/75 to-[#0a0d16]/20" />
+        </>
       )}
-      <div className="flex flex-1 flex-col p-7">
+      <div className="relative flex min-h-72 max-w-2xl flex-col p-8 sm:min-h-80 sm:p-10">
         <div className="flex items-center gap-3">
           <span className="rounded-full bg-rose-400/90 px-3 py-0.5 font-mono2 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-950">
             {t('media.featured')}
@@ -39,35 +43,29 @@ function Headline({ n }: { n: NewsItem }) {
           <span className="font-mono2 text-xs text-rose-300/80">{n.date}</span>
         </div>
         <h3 className="mt-4 font-display text-2xl font-bold leading-snug sm:text-3xl">{n.title}</h3>
-        <div className="mt-2 text-xs uppercase tracking-wider text-slate-500">{n.source}</div>
-        <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-400">{n.summary}</p>
+        <div className="mt-2 text-xs uppercase tracking-wider text-slate-400">{n.source}</div>
+        <p className="mt-4 text-sm leading-relaxed text-slate-300">{n.summary}</p>
         <ReadMore url={n.url} />
       </div>
     </article>
   )
 }
 
-/** Compact side card — natural height, thumbnail when the story has an image. */
-function SideCard({ n, delay }: { n: NewsItem; delay: number }) {
+/** Masonry card — natural height, image shown whenever the story has one. */
+function MasonryCard({ n }: { n: NewsItem }) {
   return (
-    <Reveal delay={delay}>
-      <article className="group flex gap-4 rounded-xl border border-slate-800 bg-[#0a1120] p-5 transition-all hover:border-rose-400/40 hover:shadow-[0_0_30px_rgba(251,113,133,0.07)]">
-        {n.image && (
-          <img
-            src={assetUrl(n.image)}
-            alt=""
-            className="h-20 w-20 shrink-0 self-start rounded-lg border border-slate-700/60 object-cover"
-          />
-        )}
-        <div className="min-w-0">
-          <div className="font-mono2 text-xs text-rose-300/80">{n.date}</div>
-          <h3 className="mt-1.5 font-display text-[15px] font-semibold leading-snug">{n.title}</h3>
-          <div className="mt-1 text-xs uppercase tracking-wider text-slate-500">{n.source}</div>
-          <p className="mt-2 text-[13px] leading-relaxed text-slate-400">{n.summary}</p>
-          <ReadMore url={n.url} />
-        </div>
-      </article>
-    </Reveal>
+    <article className="group mb-5 break-inside-avoid overflow-hidden rounded-xl border border-slate-800 bg-[#0a1120] transition-all hover:border-rose-400/40 hover:shadow-[0_0_30px_rgba(251,113,133,0.07)]">
+      {n.image && (
+        <img src={assetUrl(n.image)} alt="" className="w-full object-cover" />
+      )}
+      <div className="p-5">
+        <div className="font-mono2 text-xs text-rose-300/80">{n.date}</div>
+        <h3 className="mt-2 font-display text-[15px] font-semibold leading-snug">{n.title}</h3>
+        <div className="mt-1 text-[11px] uppercase tracking-wider text-slate-500">{n.source}</div>
+        <p className="mt-2.5 text-[13px] leading-relaxed text-slate-400">{n.summary}</p>
+        <ReadMore url={n.url} />
+      </div>
+    </article>
   )
 }
 
@@ -93,17 +91,16 @@ export default function Media() {
 
       <section className="mx-auto max-w-6xl px-5 py-14">
         {headline && (
-          <div className="grid gap-6 lg:grid-cols-5">
-            <Reveal className="h-full lg:col-span-3">
-              <Headline n={headline} />
-            </Reveal>
-            <div className="flex flex-col gap-5 lg:col-span-2">
-              {rest.map((n, i) => (
-                <SideCard key={n.id} n={n} delay={Math.min(120 + i * 80, 440)} />
-              ))}
-            </div>
-          </div>
+          <Reveal>
+            <Headline n={headline} />
+          </Reveal>
         )}
+        {/* true masonry: CSS multi-column, cards keep their natural height */}
+        <div className="mt-8 columns-1 gap-5 sm:columns-2 lg:columns-3">
+          {rest.map((n) => (
+            <MasonryCard key={n.id} n={n} />
+          ))}
+        </div>
       </section>
     </Layout>
   )

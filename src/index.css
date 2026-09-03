@@ -44,6 +44,9 @@
   .font-mono2 {
     font-family: 'JetBrains Mono', 'Noto Sans TC', monospace;
   }
+  .font-serif-display {
+    font-family: 'Instrument Serif', 'Noto Sans TC', serif;
+  }
 }
 
 @layer utilities {

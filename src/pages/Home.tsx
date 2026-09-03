@@ -17,6 +17,8 @@ const focusKeys = [
 export default function Home() {
   const { t } = useLang()
   const { content } = useContent()
+  // split "Interaction Lab" → serif-italic word + bold word(s) for mixed typography
+  const [titleB1, ...titleBRest] = t('hero.titleB').split(' ')
 
   return (
     <Layout>
@@ -28,16 +30,29 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#060a12_92%)]" />
 
         <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center px-5 pt-28 pb-16 text-center">
+          {/* dark gaussian ellipse lifting the title off the interactive field */}
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
+            <div className="h-[26rem] w-[44rem] max-w-[95vw] rounded-[50%] bg-[#03060c]/80 blur-3xl" />
+          </div>
           <Reveal>
-            <div className="font-mono2 text-[11px] uppercase tracking-[0.35em] text-cyan-300/80">
+            <div className="relative font-mono2 text-[11px] uppercase tracking-[0.35em] text-cyan-300/80">
+              <span className="mr-2.5 inline-block h-1.5 w-1.5 rounded-full bg-rose-400 align-middle" />
               {t('hero.kicker')}
             </div>
           </Reveal>
           <Reveal delay={120}>
-            <h1 className="mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
-              <span className="text-gradient-cyan">{t('hero.titleA')}</span>
-              <br />
-              <span className="text-slate-100">{t('hero.titleB')}</span>
+            <h1 className="relative mt-9 leading-[1.05]">
+              <span className="block font-display text-6xl font-bold tracking-tight text-slate-50 sm:text-7xl md:text-8xl">
+                {t('hero.titleA')}
+              </span>
+              <span className="text-gradient-cyan mt-4 block font-serif-display text-5xl italic tracking-normal sm:text-6xl md:text-7xl">
+                {titleB1}
+              </span>
+              {titleBRest.length > 0 && (
+                <span className="mt-2 block font-display text-6xl font-bold tracking-[0.12em] text-slate-50 sm:text-7xl md:text-8xl">
+                  {titleBRest.join(' ')}
+                </span>
+              )}
             </h1>
           </Reveal>
           <Reveal delay={240}>

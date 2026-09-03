@@ -43,16 +43,18 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#060a12] text-slate-100">
-      {/* header */}
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled ? 'glass py-2' : 'bg-transparent py-4'
-        }`}
-      >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5">
-          <Link to="/" className="flex items-center gap-3">
-            <img src={assetUrl('./assets/lab-logo-outline.png')} alt="Lab logo" className="h-9 w-9 object-contain" />
-            <div className="leading-tight">
+      {/* header — floating logo plate + detached pill menu */}
+      <header className="fixed inset-x-0 top-0 z-50">
+        <div className="relative mx-auto flex max-w-6xl items-center justify-between px-5 pt-4">
+          {/* logo plate — large and clearly readable */}
+          <Link
+            to="/"
+            className={`glass flex items-center gap-3 rounded-2xl border border-slate-700/50 px-3.5 py-2.5 transition-shadow duration-300 ${
+              scrolled ? 'shadow-[0_10px_36px_rgba(0,0,0,0.55)]' : ''
+            }`}
+          >
+            <img src={assetUrl('./assets/lab-logo-outline.png')} alt="Lab logo" className="h-12 w-12 object-contain" />
+            <div className="hidden leading-tight sm:block">
               <div className="font-display text-sm font-semibold tracking-wide">
                 Neuro-Affective <span className="text-cyan-300">Interaction</span> Lab
               </div>
@@ -62,24 +64,29 @@ export default function Layout({ children }: { children: ReactNode }) {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-6 md:flex">
+          {/* detached pill menu — horizontally centered, visually separate from the logo */}
+          <nav className="glass absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 rounded-full border border-slate-700/50 p-1 md:flex">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `text-sm transition-colors ${
-                    isActive ? 'text-cyan-300' : 'text-slate-300 hover:text-cyan-200'
+                  `rounded-full px-3.5 py-1.5 text-xs transition-colors ${
+                    isActive
+                      ? 'bg-cyan-400/90 font-semibold text-slate-950'
+                      : 'text-slate-300 hover:text-cyan-200'
                   }`
                 }
               >
                 {t(item.key)}
               </NavLink>
             ))}
+          </nav>
 
-            {/* language toggle */}
-            <div className="flex items-center rounded-full border border-slate-700/70 p-0.5 text-xs">
+          {/* right cluster: compact language pill + mobile burger */}
+          <div className="flex items-center gap-2">
+            <div className="glass hidden items-center rounded-full border border-slate-700/50 p-0.5 text-xs md:flex">
               <button
                 onClick={() => setLang('en')}
                 className={`rounded-full px-2.5 py-1 transition-colors ${
@@ -97,16 +104,16 @@ export default function Layout({ children }: { children: ReactNode }) {
                 繁中
               </button>
             </div>
-          </nav>
 
-          {/* mobile menu button */}
-          <button
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-slate-700 md:hidden"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Menu"
-          >
-            <span className="text-lg">{menuOpen ? '✕' : '☰'}</span>
-          </button>
+            {/* mobile menu button */}
+            <button
+              className="glass flex h-10 w-10 items-center justify-center rounded-full border border-slate-700/50 md:hidden"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Menu"
+            >
+              <span className="text-lg">{menuOpen ? '✕' : '☰'}</span>
+            </button>
+          </div>
         </div>
 
         {/* mobile menu */}
@@ -149,7 +156,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       {/* footer */}
       <footer className="border-t border-slate-800/80 bg-[#05080f]">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-5 py-10 text-center">
-          <img src={assetUrl('./assets/lab-logo-outline.png')} alt="" className="h-10 w-10 opacity-80" />
+          <img src={assetUrl('./assets/lab-logo-outline.png')} alt="" className="h-16 w-16 opacity-90" />
           <div>
             <div className="font-display font-semibold">{t('footer.line1')}</div>
             <div className="mt-1 text-sm text-slate-400">{t('footer.line2')}</div>

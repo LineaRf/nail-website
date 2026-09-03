@@ -21,7 +21,7 @@ export default function PageHeader({
     <section className="relative overflow-hidden border-b border-slate-800/60">
       <TactileField className="absolute inset-0 cursor-crosshair" opacity={0.45} />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#060a12]/40 via-transparent to-[#060a12]" />
-      <div className="pointer-events-none relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-36">
+      <div className="pointer-events-none relative z-10 mx-auto flex h-[19rem] max-w-6xl flex-col justify-end px-5 pb-14 sm:h-[21rem]">
         <Reveal>
           <div className={`font-mono2 text-[11px] uppercase tracking-[0.35em] ${accentText}`}>{kicker}</div>
           <h1 className="mt-4 max-w-3xl font-display text-4xl font-bold leading-tight sm:text-5xl">{title}</h1>
